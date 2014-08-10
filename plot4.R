@@ -1,6 +1,6 @@
 library(data.table)
 
-# Read in all data
+# Read in all data.
 setwd("~/coursera/ExData_Plotting1/")
 suppressWarnings(power_data <- fread("../data/household_power_consumption.txt", 
                     header = TRUE, sep = ";"))
@@ -19,14 +19,27 @@ power_data_subset <- power_data[as.Date(power_data$Datetime)
                                 %in% as.Date(c("2007-02-01", "2007-02-02")),]
 
 
-# Make plot 3.
+# Set up environment for plot 4.
+png("plot4.png", height = 480, width = 480, bg = NA)
+par(mfrow = c(2,2))
 
-png("plot3.png", height = 480, width = 480, bg = NA)
+# Add first plot.
+with(power_data_subset, plot(Datetime, Global_active_power, type = "l", 
+                             xlab = "", ylab = "Global Active Power"))
+
+# Add second plot.
+with(power_data_subset, plot(Datetime, Voltage, type = "l", xlab = "datetime"))
+
+# Add third plot.
 with(power_data_subset, plot(Datetime, Sub_metering_1, type = "l", 
                              xlab = "", ylab = "Energy sub metering"))
 with(power_data_subset, lines(Datetime, Sub_metering_2, col = "red"))
 with(power_data_subset, lines(Datetime, Sub_metering_3, col = "blue"))
 legend("topright", legend = c("Sub_metering_1", "Sub_metering_2",  
                               "Sub_metering_3"), 
-       lty = 1, col = c("black", "red", "blue"))
+       lty = 1, col = c("black", "red", "blue"), bty = "n")
+
+# Add fourth plot.
+with(power_data_subset, plot(Datetime, Global_reactive_power, type = "l"))
+
 dev.off()
