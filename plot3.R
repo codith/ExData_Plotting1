@@ -19,11 +19,14 @@ power_data_subset <- power_data[as.Date(power_data$Datetime)
                                 %in% as.Date(c("2007-02-01", "2007-02-02")),]
 
 
-# Make plot 1.
-par("mar" = c(4,4,2,2), "mgp" = c(2,1,0))
+# Make plot 3.
 
-png(filename = "plot1.png", width = 480, height = 480, bg = NA)
-hist(power_data_subset$Global_active_power, main = "Global Active Power", 
-     xlab = "Global Active Power (kilowatts)", 
-     cex.lab = 1, cex.axis = 1, cex.main = 1.2, col = "red")
+png("plot3.png", height = 480, width = 480, bg = NA)
+with(power_data_subset, plot(Datetime, Sub_metering_1, type = "l", 
+                             xlab = "", ylab = "Energy sub metering"))
+with(power_data_subset, lines(Datetime, Sub_metering_2, col = "red"))
+with(power_data_subset, lines(Datetime, Sub_metering_3, col = "blue"))
+legend("topright", legend = c("Sub_metering_1", "Sub_metering_2",  
+                              "Sub_metering_3"), 
+       lty = 1, col = c("black", "red", "blue"))
 dev.off()

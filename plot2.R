@@ -19,11 +19,9 @@ power_data_subset <- power_data[as.Date(power_data$Datetime)
                                 %in% as.Date(c("2007-02-01", "2007-02-02")),]
 
 
-# Make plot 1.
-par("mar" = c(4,4,2,2), "mgp" = c(2,1,0))
+# Make plot 2.
 
-png(filename = "plot1.png", width = 480, height = 480, bg = NA)
-hist(power_data_subset$Global_active_power, main = "Global Active Power", 
-     xlab = "Global Active Power (kilowatts)", 
-     cex.lab = 1, cex.axis = 1, cex.main = 1.2, col = "red")
+png("plot2.png", height = 480, width = 480, bg = NA)
+with(power_data_subset, plot(Datetime, Global_active_power, type = "l", 
+                             xlab = "", ylab = "Global Active Power (kilowatts)"))
 dev.off()
